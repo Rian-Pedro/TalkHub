@@ -2,7 +2,7 @@ import React from 'react'
 import {AiFillCloseCircle} from 'react-icons/ai'
 import "../scss/ErrorCard.scss"
 
-const ErrorCard = ({ reference, handleError }) => {
+const ErrorCard = ({ reference, handleError, text }) => {
 
   return (
     <div 
@@ -15,7 +15,7 @@ const ErrorCard = ({ reference, handleError }) => {
       </div>
 
       <div>
-        Lorem ipsum dolor sit amet consectetur
+        {text}
       </div>
     </div>
   )

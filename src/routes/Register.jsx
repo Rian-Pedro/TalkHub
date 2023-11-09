@@ -5,13 +5,13 @@ import { IoIosArrowDroprightCircle, IoIosArrowDropleftCircle } from 'react-icons
 
 import { Link } from 'react-router-dom'
 
-import Input from '../components/Input'
 import Container from '../components/Container'
 import ErrorCard from '../components/ErrorCard'
 import StepOne from '../components/registerSteps/StepOne'
 import StepTwo from '../components/registerSteps/StepTwo'
 import StepThree from '../components/registerSteps/StepThree'
 import UserService from '../services/UserService'
+import Loader from '../components/Loader'
 
 
 export const Register = () => {
@@ -22,6 +22,8 @@ export const Register = () => {
   const [confirmPass, setConfirmPass] = useState('')
   const [nick, setNick] = useState('')
   const [userImg, setUserImg] = useState(null)
+  const [msgError, setMsgError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   
   const steps = [<StepOne 
                     setName={setName} 
@@ -53,7 +55,15 @@ export const Register = () => {
     formData.append('email', email)
     formData.append('pass', pass)
     formData.append('img', userImg)
-    const teste = await UserService.sendData(formData)
+
+    setIsLoading(true)
+    const response = await UserService.sendData(formData)
+    setIsLoading(false)
+
+    if(response.status === 406) {
+      setMsgError(response.message)
+      cardError.current.classList.add("visible")
+    }
   }
   
   const handleNext = () => {
@@ -84,11 +94,14 @@ export const Register = () => {
         <ErrorCard 
           reference={cardError} 
           handleError={handleError}
+          text={msgError}
         />
 
         <p>Cadastro</p>
 
-        <div className="container-form">
+        {isLoading && <Loader />}
+
+        <div className={`container-form ${isLoading ? 'invisible' : ''}`}>
           {steps[numActivate]}
 
           <div className='button-container'>
