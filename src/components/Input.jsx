@@ -1,0 +1,27 @@
+import React, { useRef } from 'react'
+
+import "../scss/Input.scss"
+
+const Input = ({ title, name, placeholder, set, value, type }) => {
+  const input = useRef(null);
+  
+  const handleChange = () => {
+    set(input.current.value)
+  }
+
+  return (
+    <label className='input'>
+      <p>{title}</p>
+      <input 
+        type={`${type == 'password' ? 'password' : 'text'}`} 
+        name={name} 
+        ref={input} 
+        placeholder={placeholder} 
+        value={value}
+        onChange={handleChange}
+      />
+    </label>
+  )
+}
+
+export default Input

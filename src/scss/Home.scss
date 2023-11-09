@@ -1,0 +1,98 @@
+@import "variables";
+
+div.container-desc {
+
+  display: flex;
+  justify-content: space-around ;
+  align-items: center;
+
+  flex: 1;
+
+  div.desc {
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    width: 40%;
+    position: relative;
+
+
+    h1 {
+      font-weight: 500;
+    }
+  
+    p {
+      margin-top: 1.1rem;
+      margin-left: 1.3rem;
+      width: 85%;
+    }
+  }
+
+  div.mesa {
+    background-image: radial-gradient(50% 50% at 50% 50%, #FFF 0%, rgba(255, 255, 255, 0.52) 0.01%, rgba(255, 255, 255, 0.23) 0.02%, rgba(255, 255, 255, 0.00) 100%);
+    width: 20rem;
+    height: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      animation: levitate 5s linear infinite
+    }
+  }
+}
+
+div.issues {
+  h1 {
+    font-size: 3rem;
+    text-align: center;
+  }
+
+  div.card-container {
+    display: flex;
+    gap: 2rem;
+    margin-top: 5rem;
+
+    div.card {
+      border-radius: 10px;
+      background-color: $background-color;
+      padding: 2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2.3rem;
+
+      div.title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.9rem;
+
+        img {
+          width: 4rem;
+        }
+
+        p {
+          color: #fff;
+          font-size: 2rem;
+        }
+      }
+
+      p {
+        color: #fff;
+        font-size: 1.25rem;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@keyframes levitate {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  /* Define a animação usando keyframes. Ela move o elemento para cima e para baixo. */
+}

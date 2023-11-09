@@ -1,0 +1,50 @@
+@import 'variables';
+@import 'LoginRegister';
+
+div.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 1.5rem;
+
+  div.dot-container {
+    display: flex;
+
+    svg {
+      font-size: 1.9rem;
+      color: #D9D9D9;
+
+      &.activate {
+        color: black;
+      }
+    }
+  }
+
+  button.back-button, button.submit-button {
+    margin-top: 0 !important;
+    position: absolute;
+    display: flex;
+    width: 20%;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3rem !important;
+  }
+
+  button.back-button {
+    left: 10%;
+  }
+
+  button.submit-button {
+    margin-top: 0 !important;
+    position: absolute;
+    right: 10%;
+    display: flex;
+    width: 20%;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3rem !important;
+  }
+}
