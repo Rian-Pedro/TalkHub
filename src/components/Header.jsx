@@ -12,7 +12,7 @@ const Header = () => {
         </button>
 
         <button className='btn-cad'>
-          <Link>Cadastrar</Link>
+          <Link to='/registro'>Cadastrar</Link>
         </button>
       </nav>
     </header>

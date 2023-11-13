@@ -1,0 +1,45 @@
+div.msg-line {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+div.card-user-msg {
+  position: relative;
+  min-width: 200px;
+  max-width: 400px;
+  background-color: #2A2A2A;
+  padding: 1.25rem;
+  align-self: flex-end;
+  right: 3rem;
+  bottom: 0;
+  border-radius: 5px 0 5px 5px;
+  color: #fff;
+
+  p:nth-child(1) {
+    width: 80%;
+    word-wrap: break-word;
+  }
+
+  p:nth-child(2) {
+    position: absolute;
+    right: .5rem;
+    bottom: .5rem;
+    font-size: 0.75rem;
+  }
+
+  div.deco {
+    position: absolute;
+    right: -20px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    
+    svg {
+      path {
+        fill: #2A2A2A;
+      }
+    }
+  }
+}

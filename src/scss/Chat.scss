@@ -1,0 +1,240 @@
+div.container-chat {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+
+  div.contacts {
+    // border: 1px solid red;
+    background-color: #121212;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    div.header-contacts {
+      width: 100%;
+      height: 15%;
+      background-color: #2A2A2A;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 0 1.5rem;
+
+      img {
+        width: 60px;
+        height: 60px;
+        border-radius: 100%;
+      }
+
+      svg {
+        color: #fff;
+        font-size: 2rem;
+      }
+    }
+
+    div.search {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+      align-items: center;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      
+      background-color: #1E1E1E;
+
+      border-radius: 5px;
+
+      padding: .5rem 1rem;
+      width: 90%;
+
+      svg {
+        color: #fff;
+        font-size: 1.5rem;
+        margin-bottom: -5px;
+      }
+
+      input {
+        width: 90%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        padding: .2rem 0;
+        color: #fff;
+      }
+    }
+
+    div.contact {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        background-color: #121212;
+        width: 5px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #1E1E1E;
+        margin: 0 5px;
+        border-radius: 5px;
+        border-right: 2px solid #121212;
+      }
+    }
+
+  }
+
+  div.chat {
+    // border: 1px solid purple;
+    background-color: #1E1E1E;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    div.chat-header {
+      width: 100%;
+      height: 15%;
+      display: flex;
+      align-items: center;
+      background-color: #333;
+      padding: 0 2.25rem;
+      gap: 1.5rem;
+
+      div.contact-img {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 100%;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      div.header-content {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        justify-content: space-between;
+        
+        div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        p {
+          color: #fff;
+          font-size: 1.25rem;
+          font-weight: 600;
+        }
+  
+        svg {
+          color: #fff;
+          font-size: 2rem;
+        }
+      }
+    }
+
+    div.chat-area {
+      flex: 1;
+      background-image: url('../assets/backgroundTest.jpeg');
+      background-size: cover;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      overflow: auto;
+
+      div.box-msg {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 1rem;
+        padding-top: 1rem;
+        position: relative;
+
+        &::before {
+          content: '';
+          width: 100%;
+          height: 100%;
+          background-color: #000000a1;
+          backdrop-filter: blur(3px) saturate(80%) brightness(90%);
+          position: absolute;
+        }
+      }
+
+      &::-webkit-scrollbar {
+        width: 8px;
+        background-color: #121212;
+        backdrop-filter: blur(3px) saturate(80%) brightness(90%);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #1E1E1E;
+        border: 3px solid #121212;
+        border-radius: 10px;
+      }
+      
+    }
+
+    input {
+      flex: 1;
+      padding: 0 1.25rem;
+      background-color: #333;
+      border: none;
+      outline: none;
+      border-radius: 5px;
+      color: #fff;
+
+      &::placeholder {
+        color: #fff;
+      }
+    }
+
+    div.send-area {
+      display: flex;
+      width: 100%;
+      height: 12%;
+      background-color: #2A2A2A;
+      padding: .8rem 2.25rem;
+      gap: 1.5rem;
+      
+      div.button-area {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        svg {
+          color: #B0B0B0;
+          font-size: 1.5rem;
+          margin-bottom: -5px;
+        }
+      }
+
+      div.send-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: fit-content;
+        padding: 0.5rem;
+        background-color: #000;
+        border-radius: 5px;
+
+        svg {
+          color: #fff;
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}
