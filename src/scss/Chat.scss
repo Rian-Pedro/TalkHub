@@ -238,3 +238,15 @@ div.container-chat {
     }
   }
 }
+
+div.adicionar {
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid red;
+  width: 90%;
+  gap: 1rem;
+  cursor: pointer;
+}

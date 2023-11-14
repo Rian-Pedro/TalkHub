@@ -10,7 +10,8 @@ const Contact = ({user, set}) => {
       </div>
       <div className='desc'>
         <p>{user.name}</p>
-        <p>00:00</p>
+        {set && <p>00:00</p>}
+        {!set && <p>#{user.nick}</p>}
       </div>
     </div>
   )
