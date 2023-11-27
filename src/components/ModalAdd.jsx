@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Contact from "./Contact"
 
 import UserService from '../services/UserService'
@@ -7,11 +7,13 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { TbRepeat } from "react-icons/tb";
 
 import '../scss/utils/ModalAdd.scss'
+import { UserListContext } from '../contexts/UserListContext';
 
 const ModalAdd = ({id, setClose}) => {
 
   const [inputValue, setInputValue] = useState('')
   const [contactUser, setContactUser] = useState(null)
+  const { userInfo, setUserInfo } = useContext(UserListContext)
 
   const handleGetUser = async () => {
     const contact = await UserService.getUser({email: inputValue})
@@ -20,6 +22,7 @@ const ModalAdd = ({id, setClose}) => {
 
   const handleAddNew = async () => {
     const response = await UserService.newContact(id, contactUser.id)
+    setUserInfo({...userInfo, contacts: [...userInfo.contacts, contactUser] })
     if(response.status === 202) setClose(false)
   }
 

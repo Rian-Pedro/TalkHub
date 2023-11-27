@@ -1,49 +1,81 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { useRef } from 'react'
 
 import UserMsg from '../../components/chat/UserMsg'
 import ContactMsg from '../../components/chat/ContactMsg'
 
 import yusuke from "../../assets/yusuke.png"
+
 import {BiDotsVerticalRounded} from 'react-icons/bi'  
 import { FaRegFaceLaugh } from "react-icons/fa6"
 import { FaPlus } from "react-icons/fa"
 import { PiPaperPlaneRightFill } from "react-icons/pi"  
+import Msg from '../../services/MsgService'
+import { NewMessageContext } from '../../contexts/NewMessageContext'
+import Loader from '../Loader'
 
-import { useRef } from 'react'
+const ChatArea = ({userTalk, socket, user, room}) => {
 
-const ChatArea = ({user, setUser}) => {
+  const { newMessage } = useContext(NewMessageContext)
 
   const chatAreaRef = useRef()
   const [inputValue, setInputValue] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
   const inputRef = useRef(null)
+  const [messages, setMessages] = useState([])
+
+  const handleEnter = (event) => {
+    if(event.key === "Enter") {
+      handleSend()
+    }
+  }
 
   const handleSend = () => {
-    setUser({
-              name: user.name, 
-              id: user.id, 
-              chat: [...user.chat, 
-                     {
-                      id: '1a', 
-                      msg: inputValue
-                    }]})
+    socket.emit("message", {
+      sender: user._id, 
+      recipient: userTalk.id, 
+      content: inputValue, 
+      room: room
+    })
+
+    setInputValue('')
   }
 
   const handleTest = (e) => setInputValue(e.target.value)
 
   useEffect(() => {
-    chatAreaRef.current.scrollTo(0, chatAreaRef.current.scrollHeight)
-  }, [user])
+    if(newMessage) {
+      setMessages((current) => [...current, newMessage])
+    }
+  }, [newMessage])
+
+  useEffect(() => {
+    
+    if(userTalk) {
+      (async () => {
+        setIsLoading(true)
+        const value = await Msg.getMessages(user._id, userTalk.id)
+        setMessages([...value]) 
+        setIsLoading(false)
+      })()
+    }
+
+  }, [userTalk])
+
+  useEffect(() => {
+    chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight
+  }, [messages, newMessage])
 
   return (
     <div className='chat'>
         <div className='chat-header'>
 
           <div className='contact-img'>
-            <img src={yusuke} alt="foto de perfil" />
+            <img src={`http://localhost:5000/getImg?src=${encodeURIComponent(userTalk.userImg)}`} alt="foto de perfil" />
           </div>
 
           <div className='header-content'>
-            <p>{user.name}</p>
+            <p>{userTalk.name}</p>
             <div className='contact-options'>
               <BiDotsVerticalRounded />
             </div>
@@ -54,11 +86,30 @@ const ChatArea = ({user, setUser}) => {
         <div className='chat-area' ref={chatAreaRef}>
 
           <div className='box-msg'>
-            {user.chat.map((message, index) => {
-              if(message.id == '1a') {
-                return (<UserMsg text={message.msg} key={index}/>)
+            
+            {isLoading && 
+              <div className="spin">
+                <Loader/>
+              </div>
+            }
+
+            {messages && !isLoading && messages.map((message, index) => {
+              if(message.sender == user._id) {
+                return (
+                  <UserMsg 
+                    text={message.content} 
+                    hour={message.hour} 
+                    key={index}
+                  />
+                )
               } else {
-                return (<ContactMsg text={message.msg} key={index} />)
+                return (
+                  <ContactMsg 
+                    text={message.content} 
+                    hour={message.hour} 
+                    key={index} 
+                  />
+                )
               }
             })}
             
@@ -84,6 +135,7 @@ const ChatArea = ({user, setUser}) => {
             ref={inputRef}
             value={inputValue}
             onChange={(e) => handleTest(e)}
+            onKeyDown={handleEnter}
           />
 
           <div className='send-button' onClick={handleSend}>

@@ -1,13 +1,13 @@
 import React from 'react'
 import '../../scss/chat/UserMsg.scss'
 
-const UserMsg = ({text}) => {
+const UserMsg = ({text, hour}) => {
   return (
     <div className='msg-line'>
       <div className='card-user-msg'>
 
         <p>{text}</p>
-        <p>00:00</p>
+        <p>{hour && hour.substring(0, 5)}</p>
 
         <div className='deco'>
 

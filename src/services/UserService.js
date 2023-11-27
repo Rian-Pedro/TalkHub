@@ -25,6 +25,22 @@ class UserService {
     const response = await api.post('/newContact', identifier)
     return response.data
   }
+
+  static async getAllContacts(userId) {
+    const contactsId = await api.get('/getAllUsers', {
+      params: {userId: userId}
+    })
+
+    const contacts = []
+
+    for(const contact of contactsId.data) {
+      const response = await api.get('/getUser', {
+        params: {contactId: contact.contactId}
+      })
+      contacts.push(response.data)
+    }
+    return contacts
+  }
 }
 
 export default UserService

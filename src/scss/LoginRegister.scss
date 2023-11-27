@@ -75,7 +75,51 @@ div.login-container {
   }
 }
 
-
 .invisible {
   visibility: hidden;
+}
+
+@media (max-width: 835px) {
+  div.title-container {
+    position: absolute;
+    top: 1.5rem;
+    padding-left: 1rem;
+    width: 100%;
+    height: auto;
+    background: none;
+
+    &::after {
+      display: none;
+    }
+
+    h1 {
+      color: #000;
+      text-align: start;
+      width: 100%;
+      font-size: 2.5rem;
+    }
+  }
+
+  div.login-container {
+    width: 100%;
+    gap: 3rem;
+
+    p {
+      font-weight: 700;
+      // font-size: 1.5rem;
+    }
+    
+    div.container-form {
+      width: 80%;
+      gap: 1.8rem;
+
+      button {
+        margin-top: 2rem !important;
+      }
+
+      p:has(a) {
+        margin-top: 4rem;
+      }
+    }
+  }
 }

@@ -240,13 +240,37 @@ div.container-chat {
 }
 
 div.adicionar {
-  color: #fff;
+  color: #333333;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  border: 1px solid red;
+  border: 1px solid #333333;
+  border-radius: 5px;
   width: 90%;
   gap: 1rem;
   cursor: pointer;
+  transition: .5s;
+
+  &:hover {
+    color: #ffffff93;
+    border-color: #ffffff93;
+  }
+}
+
+.spin {
+  align-self: center;
+  position: absolute;
+  top: 50%;
+
+  .loader {
+    border: 3px dotted #fff;
+    border-style: solid solid dotted dotted;
+    border-radius: 50%;
+
+    &::after {
+      border: 3px dotted #fff;
+      border-style: solid solid dotted;
+    }
+  }
 }

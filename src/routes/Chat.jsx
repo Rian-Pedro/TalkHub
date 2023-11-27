@@ -1,44 +1,76 @@
-import React, { useEffect, useState } from 'react'
-import { useLoaderData, useNavigate } from 'react-router-dom'
-
-import Contact from '../components/Contact'
-import ChatArea from '../components/chat/ChatArea'
-
-import '../scss/Chat.scss'
+import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { decodeToken } from 'react-jwt'
+import io from "socket.io-client"
+import '../scss/Chat.scss'
 
 import { FaPlus } from "react-icons/fa"
 import {BiDotsVerticalRounded, BiSearchAlt2} from 'react-icons/bi'
-import UserService from '../services/UserService'
+
+import Contact from '../components/Contact'
+import ChatArea from '../components/chat/ChatArea'
+import Loader from '../components/Loader'
 import ModalAdd from '../components/ModalAdd'
+import { UserListContext } from '../contexts/UserListContext'
+import UserService from '../services/UserService'
+
+import { NewMessageContext } from "../contexts/NewMessageContext"
+
 // FaRegFaceLaughWink
 
-export const Chat = () => {
+const Chat = () => {
 
-  let token = useLoaderData()
-  const [decode, setDecode] = useState({})
+  const socket = io("http://localhost:5000")
+
+  const { userInfo, setUserInfo } = useContext(UserListContext)
+  const { newMessage, setNewMessage } = useContext(NewMessageContext)
+
+  const { token, setToken } = useState('');
+  const [room, setRoom] = useState('')
   const navigate = useNavigate()
   const [userTalk, setUserTalk] = useState(null)
   const [testeContacts, setTesteContacts] = useState([])
   const [isAddingNew, setIsAddingNew] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  
+  const [currentMsg, setCurrentMsg] = useState([])
+
+  socket.on("chat_started", (data) => {
+    setRoom(data.room)
+    console.log(data)
+  })
+
+  socket.on("message_sended", (data) => {
+    setNewMessage(data)
+  })
 
   useEffect(() => {
-    testeContacts.forEach(contact => {
-      if(userTalk && contact.id === userTalk.id) {
-        contact.chat = [...userTalk.chat]
-        localStorage.setItem('contacts', JSON.stringify(testeContacts))
+      const teste = async () => {
+      const token = localStorage.getItem('token')
+      const userInfo = decodeToken(token)
+      userInfo.contacts = await UserService.getAllContacts(userInfo['_id'])
+      
+      if(!token) {
+        navigate('/')
+      } else {
+        setUserInfo(userInfo)
+        socket.emit("join_room", {room: userInfo._id})
+        setIsLoading(false)
+        setTesteContacts(userInfo.contacts)
       }
-    })
-  }, [userTalk])
-
-  useEffect(() => {
-    if(!token) {
-      navigate('/')
-    } else {
-      setDecode(decodeToken(token))
-      setTesteContacts(JSON.parse(localStorage.getItem('contacts')))
     }
-  },[])
+    
+    teste()
+    
+  }, [])
+  
+  const handleNewChat = (newChat) => {
+
+    if(userTalk && room) socket.emit("leave_room", {room: room})
+
+    socket.emit("start_chat", {user_id: userInfo._id, friend_id: newChat.id})
+    setUserTalk(newChat) 
+  }
 
   const handleAdd = () => {
     setIsAddingNew(true)
@@ -46,12 +78,25 @@ export const Chat = () => {
 
   return (
     <>
-      <div className='container-chat'>
+      {isLoading 
+      ? 
+      <div className='loader-container'>
+        <Loader />
+      </div> 
+      :
+      <>
+        <div className='container-chat'>
 
         <div className='contacts'>
 
           <div className='header-contacts'>
-            <img src={`http://localhost:5000/getImg?src=${decode.userImg}`}/>
+            <img 
+              src={
+                userInfo.userImg 
+                ? `http://localhost:5000/getImg?src=${encodeURIComponent(userInfo.userImg)}` 
+                : ''
+              }
+            />
 
             <div className='profile-menu'>
               <BiDotsVerticalRounded />
@@ -66,8 +111,13 @@ export const Chat = () => {
           </div>
 
           <div className='contact'>
-            {testeContacts.map(contact => (
-              <Contact user={contact} set={setUserTalk}/>
+            {userInfo.contacts && userInfo.contacts.map(contact => (
+              <Contact 
+                user={contact} 
+                actual={userTalk} 
+                handleNewChat={handleNewChat}
+                key={contact.id}
+              />
             ))}
             <div className='adicionar' onClick={handleAdd}>
               Adicionar
@@ -77,16 +127,22 @@ export const Chat = () => {
 
         </div>
 
-        {userTalk && <ChatArea user={userTalk} setUser={setUserTalk}/>}
+        {userTalk && 
+          <ChatArea 
+            userTalk={userTalk} 
+            user={userInfo} 
+            room={room} 
+            setUser={setUserTalk} 
+            socket={socket}
+          />
+        }
 
-      </div>
+        </div>
 
-      {isAddingNew && <ModalAdd id={decode['_id']} setClose={setIsAddingNew}/>}
+        {isAddingNew && <ModalAdd id={userInfo['_id']} setClose={setIsAddingNew}/>}
+      </>}
     </>
   )
 }
 
-export const loaderChat = async () => {
-  const token = localStorage.getItem('token')
-  return token
-}
+export default Chat

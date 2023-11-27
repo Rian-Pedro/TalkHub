@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import yusuke from "../assets/yusuke.png"
 import "../scss/Contact.scss"
 
-const Contact = ({user, set}) => {
+import io from 'socket.io-client'
+
+const Contact = ({user, set, actual, handleNewChat}) => {
+
+  const handle = () => {
+    handleNewChat(user)
+  }
+
   return (
-    <div className='contact-card' onClick={() => {set(user)}}>
+    <div className='contact-card' onClick={handle}>
       <div className='img'>
-        <img src={yusuke} alt="imagem de perfil" />
+        <img src={user.userImg ? `http://localhost:5000/getImg?src=${encodeURIComponent(user.userImg)}` : ''} alt="imagem de perfil" />
       </div>
       <div className='desc'>
         <p>{user.name}</p>

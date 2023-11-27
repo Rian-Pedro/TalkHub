@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
@@ -8,7 +8,8 @@ import { Login } from './routes/Login.jsx'
 
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import { Register } from './routes/Register.jsx'
-import { Chat, loaderChat } from './routes/Chat.jsx'
+import Chat from './routes/Chat.jsx'
+import { UserListContextProvider } from './contexts/UserListContext.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,13 +17,15 @@ const router = createBrowserRouter(
       <Route index element={<Home />}/>
       <Route path='/login' element={<Login />}/>
       <Route path='/registro' element={<Register />}/>
-      <Route path='/chat' element={<Chat />} loader={loaderChat}/>
+      <Route path='/chat' element={<Chat />}/>
     </Route>
   )
 )
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <UserListContextProvider>
+      <RouterProvider router={router}/>
+    </UserListContextProvider>
   </React.StrictMode>,
 )
