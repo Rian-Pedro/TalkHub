@@ -137,7 +137,7 @@ const Chat = () => {
             <img 
               src={
                 userInfo.userImg 
-                ? `http://localhost:5000/getImg?src=${encodeURIComponent(userInfo.userImg)}` 
+                ? `https://talkhub-vz8y.onrender.com/getImg?src=${encodeURIComponent(userInfo.userImg)}` 
                 : ''
               }
             />
