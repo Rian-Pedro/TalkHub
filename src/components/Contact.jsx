@@ -18,7 +18,7 @@ const Contact = ({user, set, handleNewChat, handleRemoveNewMsg, actual}) => {
   let interval
 
   useEffect(() => {
-    const socket = io("http://localhost:5000")
+    const socket = io("https://talkhub-vz8y.onrender.com")
 
     socket.emit("join_room", {room: userInfo._id})
 

@@ -22,7 +22,7 @@ import OptionProfile from '../components/OptionProfile'
 
 const Chat = () => {
 
-  const socket = io("http://localhost:5000")
+  const socket = io("https://talkhub-vz8y.onrender.com")
 
   const { userInfo, setUserInfo } = useContext(UserListContext)
   const { newMessage, setNewMessage } = useContext(NewMessageContext)
