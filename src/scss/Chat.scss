@@ -23,16 +23,21 @@ div.container-chat {
 
       padding: 0 1.5rem;
 
+      div.profile-menu {
+        svg {
+          color: #fff;
+          font-size: 2rem;
+        }
+
+        position: relative;
+      }
+
       img {
         width: 60px;
         height: 60px;
         border-radius: 100%;
       }
 
-      svg {
-        color: #fff;
-        font-size: 2rem;
-      }
     }
 
     div.search {
@@ -131,10 +136,20 @@ div.container-chat {
           align-items: center;
         }
 
-        p {
-          color: #fff;
-          font-size: 1.25rem;
-          font-weight: 600;
+        div.name-area {
+          
+          flex-direction: column;
+          align-items: start;
+
+          p.name {
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 600;
+          }
+  
+          p.status-chat {
+            color: #B0B0B0;
+          }
         }
   
         svg {

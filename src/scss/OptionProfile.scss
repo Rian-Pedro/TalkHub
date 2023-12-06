@@ -1,0 +1,36 @@
+div.option-container {
+  width: 100px;
+  position: absolute;
+
+  left: 0;
+  top: 165%;
+
+  border-left: 1px solid #000;
+  border-bottom: 1px solid #000;
+  border-radius: 5px;
+
+  div.decorator {
+    width: 20px;
+    height: 20px;
+
+    transform: rotate(270deg);
+  }
+
+  div.content-option {
+    background-color: #454444;
+    padding: 1rem;
+    color: #fff;
+    border-radius: 0 5px 5px 5px;
+    border-right: 1px solid #000;
+
+    div.btn {
+      text-align: center;
+      cursor: pointer;
+
+      &.exit {
+        color: rgb(255, 113, 113);
+        font-weight: 700;
+      }
+    }
+  }
+}

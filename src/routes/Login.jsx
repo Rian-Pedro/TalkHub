@@ -23,6 +23,7 @@ export const Login = () => {
   const handleSubmit = async () => {
     setIsLoading(true)
     const teste = await UserService.getUserLogin({email: email, pass: pass})
+    console.log(teste)
     setIsLoading(false)
     if(teste.status === 202) {
       localStorage.setItem('token', teste.token)

@@ -15,6 +15,8 @@ import { UserListContext } from '../contexts/UserListContext'
 import UserService from '../services/UserService'
 
 import { NewMessageContext } from "../contexts/NewMessageContext"
+import { ChatContextProvider } from '../contexts/ChatContext'
+import OptionProfile from '../components/OptionProfile'
 
 // FaRegFaceLaughWink
 
@@ -24,8 +26,7 @@ const Chat = () => {
 
   const { userInfo, setUserInfo } = useContext(UserListContext)
   const { newMessage, setNewMessage } = useContext(NewMessageContext)
-
-  const { token, setToken } = useState('');
+  
   const [room, setRoom] = useState('')
   const navigate = useNavigate()
   const [userTalk, setUserTalk] = useState(null)
@@ -34,6 +35,8 @@ const Chat = () => {
   const [isLoading, setIsLoading] = useState(true)
   
   const [currentMsg, setCurrentMsg] = useState([])
+
+  const [isOpenOption, setIsOpenOption] = useState(false)
 
   socket.on("chat_started", (data) => {
     setRoom(data.room)
@@ -44,23 +47,48 @@ const Chat = () => {
     setNewMessage(data)
   })
 
+
   useEffect(() => {
       const teste = async () => {
       const token = localStorage.getItem('token')
-      const userInfo = decodeToken(token)
-      userInfo.contacts = await UserService.getAllContacts(userInfo['_id'])
       
-      if(!token) {
-        navigate('/')
+      console.log(token)
+      if(token) {
+        const userInfo = decodeToken(token)
+        userInfo.contacts = await UserService.getAllContacts(userInfo['_id'])
+        
+        if(!userInfo) {
+          navigate('/')
+        } else {
+          setUserInfo(userInfo)
+  
+          socket.emit("join_room", {room: userInfo._id})
+          setIsLoading(false)
+          setTesteContacts(userInfo.contacts)
+        }
       } else {
-        setUserInfo(userInfo)
-        socket.emit("join_room", {room: userInfo._id})
-        setIsLoading(false)
-        setTesteContacts(userInfo.contacts)
+        navigate('/')
       }
+
+      socket.on("notification", (data) => {
+        console.log(data)
+        const teste = {...userInfo}
+        teste.contacts.map(contact => {
+          if(contact.id == data.sender) {
+            contact.newMsg = true
+          }
+        })
+        setUserInfo(teste)
+      })
     }
     
+    
+    socket.connect()
     teste()
+
+    return () => {
+      socket.disconnect()
+    }
     
   }, [])
   
@@ -72,18 +100,34 @@ const Chat = () => {
     setUserTalk(newChat) 
   }
 
+  const handleRemoveNewMsg = (friendId) => {
+    const teste = {...userInfo}
+    teste.contacts.map(contact => {
+      if(contact.id == friendId) {
+        contact.newMsg = false
+      }
+    })
+
+    setUserInfo(teste)
+  }
+
   const handleAdd = () => {
     setIsAddingNew(true)
+  }
+  
+  const handleOptionHeader = () => {
+    setIsOpenOption(!isOpenOption)
   }
 
   return (
     <>
+    <ChatContextProvider>
       {isLoading 
-      ? 
-      <div className='loader-container'>
-        <Loader />
-      </div> 
-      :
+        ? 
+        <div className='loader-container'>
+          <Loader />
+        </div> 
+        :
       <>
         <div className='container-chat'>
 
@@ -98,9 +142,15 @@ const Chat = () => {
               }
             />
 
-            <div className='profile-menu'>
+            <div className='profile-menu' onClick={handleOptionHeader}>
               <BiDotsVerticalRounded />
+              {
+                isOpenOption 
+                  && 
+                <OptionProfile />  
+              }
             </div>
+
           </div>
 
           <div className='search'>
@@ -116,6 +166,7 @@ const Chat = () => {
                 user={contact} 
                 actual={userTalk} 
                 handleNewChat={handleNewChat}
+                handleRemoveNewMsg={handleRemoveNewMsg}
                 key={contact.id}
               />
             ))}
@@ -127,20 +178,21 @@ const Chat = () => {
 
         </div>
 
-        {userTalk && 
-          <ChatArea 
-            userTalk={userTalk} 
-            user={userInfo} 
-            room={room} 
-            setUser={setUserTalk} 
-            socket={socket}
-          />
-        }
+          {userTalk && 
+            <ChatArea 
+              userTalk={userTalk} 
+              user={userInfo} 
+              room={room} 
+              setUser={setUserTalk} 
+              socket={socket}
+            />
+          }
 
         </div>
 
         {isAddingNew && <ModalAdd id={userInfo['_id']} setClose={setIsAddingNew}/>}
       </>}
+    </ChatContextProvider>
     </>
   )
 }

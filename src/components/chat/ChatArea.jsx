@@ -13,12 +13,15 @@ import { PiPaperPlaneRightFill } from "react-icons/pi"
 import Msg from '../../services/MsgService'
 import { NewMessageContext } from '../../contexts/NewMessageContext'
 import Loader from '../Loader'
+import { ChatContext } from '../../contexts/ChatContext'
 
 const ChatArea = ({userTalk, socket, user, room}) => {
 
   const { newMessage } = useContext(NewMessageContext)
+  const { typingSender, setTypingSender } = useContext(ChatContext)
 
   const chatAreaRef = useRef()
+
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const inputRef = useRef(null)
@@ -41,10 +44,16 @@ const ChatArea = ({userTalk, socket, user, room}) => {
     setInputValue('')
   }
 
-  const handleTest = (e) => setInputValue(e.target.value)
+  const handleTest = (e) => {
+    setInputValue(e.target.value)
+    socket.emit("typing", {
+      sender: user._id,
+      recipient: userTalk.id
+    })
+  }
 
   useEffect(() => {
-    if(newMessage) {
+    if(newMessage && (newMessage.sender == userTalk.id || newMessage.sender == user._id)) {
       setMessages((current) => [...current, newMessage])
     }
   }, [newMessage])
@@ -75,7 +84,12 @@ const ChatArea = ({userTalk, socket, user, room}) => {
           </div>
 
           <div className='header-content'>
-            <p>{userTalk.name}</p>
+            <div className='name-area'>
+              <p className='name'>{userTalk.name}</p>
+              <p className='status-chat'>
+                {typingSender ? 'Digitando...' : 'Online'}
+              </p>
+            </div>
             <div className='contact-options'>
               <BiDotsVerticalRounded />
             </div>
