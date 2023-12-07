@@ -60,7 +60,7 @@ const Contact = ({user, set, handleNewChat, handleRemoveNewMsg, actual}) => {
   return (
     <div className='contact-card' onClick={handle}>
       <div className='img'>
-        <img src={user.userImg ? `https://talkhub-vz8y.onrender.com/getImg?src=${encodeURIComponent(user.userImg)}` : ''} alt="imagem de perfil" />
+        <img src={user.userImg ? `http://54.172.232.151:5000/getImg?src=${encodeURIComponent(user.userImg)}` : ''} alt="imagem de perfil" />
         {(isNew && newMessage.sender == user.id) && 
           <div className='newMsg'>!</div>
         }

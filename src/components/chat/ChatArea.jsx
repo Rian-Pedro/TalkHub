@@ -80,7 +80,7 @@ const ChatArea = ({userTalk, socket, user, room}) => {
         <div className='chat-header'>
 
           <div className='contact-img'>
-            <img src={`https://talkhub-vz8y.onrender.com/getImg?src=${encodeURIComponent(userTalk.userImg)}`} alt="foto de perfil" />
+            <img src={`http://54.172.232.151:5000/getImg?src=${encodeURIComponent(userTalk.userImg)}`} alt="foto de perfil" />
           </div>
 
           <div className='header-content'>

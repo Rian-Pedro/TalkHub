@@ -49,6 +49,7 @@ const Chat = () => {
 
 
   useEffect(() => {
+
       const teste = async () => {
       const token = localStorage.getItem('token')
       
@@ -137,7 +138,7 @@ const Chat = () => {
             <img 
               src={
                 userInfo.userImg 
-                ? `https://talkhub-vz8y.onrender.com/getImg?src=${encodeURIComponent(userInfo.userImg)}` 
+                ? `http://54.172.232.151:5000/getImg?src=${encodeURIComponent(userInfo.userImg)}` 
                 : ''
               }
             />
