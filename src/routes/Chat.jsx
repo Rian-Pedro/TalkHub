@@ -138,7 +138,7 @@ const Chat = () => {
             <img 
               src={
                 userInfo.userImg 
-                ? `http://54.172.232.151:5000/getImg?src=${encodeURIComponent(userInfo.userImg)}` 
+                ? `http://54.242.165.37:5000/getImg?src=${encodeURIComponent(userInfo.userImg)}` 
                 : ''
               }
             />
