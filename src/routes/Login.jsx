@@ -78,7 +78,7 @@ export const Login = () => {
             type='password'
           />
 
-          <Link>Esqueceu a senha?</Link>
+          <Link to="/esqueci">Esqueceu a senha?</Link>
 
           <button onClick={handleSubmit} className='submit-button'>Entrar</button>
 

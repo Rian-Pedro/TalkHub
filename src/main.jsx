@@ -10,6 +10,7 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 import { Register } from './routes/Register.jsx'
 import Chat from './routes/Chat.jsx'
 import { UserListContextProvider } from './contexts/UserListContext.jsx'
+import { ForgetPass } from './routes/ForgetPass.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
       <Route path='/login' element={<Login />}/>
       <Route path='/registro' element={<Register />}/>
       <Route path='/chat' element={<Chat />}/>
+      <Route path='/esqueci' element={<ForgetPass />} />
     </Route>
   )
 )

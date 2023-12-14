@@ -22,7 +22,7 @@ import OptionProfile from '../components/OptionProfile'
 
 const Chat = () => {
 
-  const socket = io("http://54.242.165.37/")
+  const socket = io("http://54.242.165.37/ws")
 
   const { userInfo, setUserInfo } = useContext(UserListContext)
   const { newMessage, setNewMessage } = useContext(NewMessageContext)

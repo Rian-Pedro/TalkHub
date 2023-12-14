@@ -18,7 +18,7 @@ const Contact = ({user, set, handleNewChat, handleRemoveNewMsg, actual}) => {
   let interval
 
   useEffect(() => {
-    const socket = io("http://54.242.165.37/")
+    const socket = io("http://54.242.165.37/ws")
 
     socket.emit("join_room", {room: userInfo._id})
 

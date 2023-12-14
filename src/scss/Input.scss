@@ -3,10 +3,20 @@ label.input {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  position: relative;
 
   p {
     font-size: 1.25rem;
     font-weight: 700;
+  }
+
+  p.timer {
+    position: absolute;
+    bottom: 15%;
+    right: 10px;
+
+    font-size: 1rem;
+    font-weight: 500;
   }
 
   input {
