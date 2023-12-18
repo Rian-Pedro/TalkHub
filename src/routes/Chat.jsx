@@ -103,7 +103,7 @@ const Chat = () => {
 
   const handleRemoveNewMsg = (friendId) => {
     const teste = {...userInfo}
-    teste.contacts.map(contact => {
+    teste.contacts && teste.contacts.map(contact => {
       if(contact.id == friendId) {
         contact.newMsg = false
       }

@@ -6,6 +6,9 @@ import mesa from "../assets/mesa.png"
 import symbol1 from "../assets/symbol1.svg"
 import symbol2 from "../assets/symbol2.svg"
 import symbol3 from "../assets/symbol3.svg"
+import background from "../assets/home/background-home.png"
+import img1 from "../assets/home/login-page.png"
+import img2 from "../assets/home/chat-page.png"
 
 export const Home = () => {
   return (
@@ -22,6 +25,11 @@ export const Home = () => {
           <div className='mesa'>
             <img src={mesa}/>
           </div>
+        </div>
+
+        <div className="background">
+          <img src={background} alt="" />
+          <div className="teste"></div>
         </div>
       </Container>
 
@@ -59,6 +67,28 @@ export const Home = () => {
           </div>
         </div>
 
+      </Container>
+
+      <Container>
+        <div className='images'>
+          <div className="background-images"></div>
+
+          <div className='content-images'>
+            <h1>Crie sua conta e converse com amigos</h1>
+
+            <div className="area-images">
+              <div className="img">
+                <img src={img1} alt="image-login" />
+              </div>
+              
+              <div className="img">
+                <img src={img2} alt="image-chat" />
+              </div>
+            </div>
+
+          </div>
+
+        </div>
       </Container>
     </>
   )
