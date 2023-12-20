@@ -30,11 +30,13 @@ export const Home = () => {
 
         <div className="background">
           <img src={background} alt="" />
-          <div className="teste"></div>
+          {/* <div className="teste"></div> */}
         </div>
       </Container>
 
       <Container white={true} center={true}>
+        
+        <div className="testeTransition"></div>
 
         <div className='issues'>
           <h1>Funcionalidade simples!</h1>
@@ -67,6 +69,8 @@ export const Home = () => {
 
           </div>
         </div>
+
+        <div className="testeTransition2"></div>
 
       </Container>
 
