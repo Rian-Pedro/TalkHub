@@ -19,13 +19,19 @@ export const Home = () => {
 
         <div className='container-desc'>
           <div className='desc'>
-            <h1>Bem Vindo(a) ao TalkHub!</h1>
-            <p>Uma plataforma de bate-papo simplificada e altamente segura projetada para tornar as suas conversas online mais práticas e protegidas.</p>
+            <div>
+              <p className='first'>Bem Vindo</p>
+            </div>
+            <div>
+              <p>Ao <span>TalkHub!</span></p>
+            </div>
+
+            <div className="desc-total">
+              <p>Uma plataforma de bate-papo simplificada e altamente segura, projetada para tornar as suas conversas online mais práticas e protegidas.</p>
+            </div>
+
           </div>
 
-          <div className='mesa'>
-            <img src={mesa}/>
-          </div>
         </div>
 
         <div className="background">

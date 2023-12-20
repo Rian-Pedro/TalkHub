@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@1,1000&display=swap');
 @import "variables";
 
 div.container {
@@ -25,20 +26,8 @@ div.background {
 
     position: absolute;
     left: 0;
-    background-color: rgba(0, 0, 0, 50%);
+    background-color: rgba(0, 0, 0, 70%);
     z-index: 0;
-  }
-
-  div.teste {
-    width: 100%;
-    height: 12vh;
-
-    bottom: 0;
-    position: absolute;
-
-    background-image: url("../assets/home/transition-1.png");
-    background-size: contain;
-    z-index: 1;
   }
   
   img {
@@ -50,8 +39,9 @@ div.background {
 div.container-desc {
 
   display: flex;
-  justify-content: space-around ;
+  // justify-content: space-around ;
   align-items: center;
+  margin-left: 2rem;
 
   flex: 1;
   
@@ -62,7 +52,69 @@ div.container-desc {
     font-family: 'Roboto', sans-serif;
     width: 40%;
     position: relative;
+    width: 85%;
 
+    div.desc-total {
+      width: 100%;
+      margin-top: 2rem;
+
+      p {
+        font-size: 1.5rem;
+        position: relative;
+        bottom: -10rem;
+
+        animation: name 1.5s 2s both;
+      }
+    }
+
+    div {
+      position: relative;
+      overflow: hidden;
+
+      p:not(div.desc-total p) {
+        font-family: 'Sofia Sans', sans-serif;
+        font-size: 4rem;
+
+        position: relative;
+
+        bottom: -5rem;
+        margin-top: -.5rem;
+
+        
+        &.first {
+          animation: name 1.5s 1s both;
+        }
+
+        &:not(.first) {
+          animation: name 1.5s 1.5s both;
+          display: flex;
+
+          span {
+            font-family: 'Sofia Sans', sans-serif;
+            position: relative;
+            display: flex;
+            margin-left: 10px;
+            padding-right: 10px;
+
+            overflow: hidden;
+
+            &::after {
+              content: "";
+              height: 8px;
+              width: calc(100% - 10px);
+              background-color: #fff;
+  
+              position: absolute;
+              bottom: 0;
+              left: -100rem;
+
+              animation: dash 1s 2s both;
+            }
+          }
+
+        }
+      }
+    }
 
     h1 {
       font-weight: 500;
@@ -357,4 +409,24 @@ div.images {
     }
 
    }
+}
+
+@keyframes name {
+  0% {
+    bottom: -5rem;
+  }
+
+  100% {
+    bottom: 0rem;
+  }
+}
+
+@keyframes dash {
+  0% {
+    left: -100rem;
+  }  
+
+  100% {
+    left: 0;
+  }
 }
