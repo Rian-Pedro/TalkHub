@@ -9,6 +9,7 @@ import symbol3 from "../assets/symbol3.svg"
 import background from "../assets/home/background-home.png"
 import img1 from "../assets/home/login-page.png"
 import img2 from "../assets/home/chat-page.png"
+import Footer from '../components/Footer'
 
 export const Home = () => {
   return (
@@ -90,6 +91,8 @@ export const Home = () => {
 
         </div>
       </Container>
+
+      <Footer />
     </>
   )
 }
