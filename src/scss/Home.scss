@@ -3,7 +3,6 @@
 div.container {
   min-height: 112vh;
   height: 112vh;
-  border: 1px solid red;
 }
 
 div.container:has(.container-desc) {
