@@ -9,13 +9,15 @@ import yusuke from "../../assets/yusuke.png"
 import {BiDotsVerticalRounded} from 'react-icons/bi'  
 import { FaRegFaceLaugh } from "react-icons/fa6"
 import { FaPlus } from "react-icons/fa"
-import { PiPaperPlaneRightFill } from "react-icons/pi"  
+import { PiPaperPlaneRightFill } from "react-icons/pi" 
+import { IoIosArrowBack } from "react-icons/io";
+
 import Msg from '../../services/MsgService'
 import { NewMessageContext } from '../../contexts/NewMessageContext'
 import Loader from '../Loader'
 import { ChatContext } from '../../contexts/ChatContext'
 
-const ChatArea = ({userTalk, socket, user, room}) => {
+const ChatArea = ({userTalk, socket, user, room, openContacts}) => {
 
   const { newMessage } = useContext(NewMessageContext)
   const { typingSender, setTypingSender } = useContext(ChatContext)
@@ -78,6 +80,10 @@ const ChatArea = ({userTalk, socket, user, room}) => {
   return (
     <div className='chat'>
         <div className='chat-header'>
+
+          <div className='back' onClick={openContacts}>
+            <IoIosArrowBack />
+          </div>
 
           <div className='contact-img'>
             <img src={`https://flask-9ben.onrender.com/getImg?src=${encodeURIComponent(userTalk.userImg)}`} alt="foto de perfil" />

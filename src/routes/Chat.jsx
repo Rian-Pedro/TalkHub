@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { decodeToken } from 'react-jwt'
 import io from "socket.io-client"
@@ -6,6 +6,7 @@ import '../scss/Chat.scss'
 
 import { FaPlus } from "react-icons/fa"
 import {BiDotsVerticalRounded, BiSearchAlt2} from 'react-icons/bi'
+import { MdOutlineClose } from "react-icons/md";
 
 import Contact from '../components/Contact'
 import ChatArea from '../components/chat/ChatArea'
@@ -37,6 +38,16 @@ const Chat = () => {
   const [currentMsg, setCurrentMsg] = useState([])
 
   const [isOpenOption, setIsOpenOption] = useState(false)
+
+  const profileMenu = useRef(null)
+
+  const openContacts = () => {
+    profileMenu.current.classList.replace("close", "open")
+  }
+
+  const closeContacts = () => {
+    profileMenu.current.classList.replace("open", "close")
+  }
 
   socket.on("chat_started", (data) => {
     setRoom(data.room)
@@ -132,7 +143,7 @@ const Chat = () => {
       <>
         <div className='container-chat'>
 
-        <div className='contacts'>
+        <div className={`contacts ${userTalk && "close"}`} ref={profileMenu}>
 
           <div className='header-contacts'>
             <img 
@@ -143,8 +154,18 @@ const Chat = () => {
               }
             />
 
-            <div className='profile-menu' onClick={handleOptionHeader}>
-              <BiDotsVerticalRounded />
+            <div 
+              className='profile-menu' 
+            >
+              <div onClick={handleOptionHeader}>
+                <BiDotsVerticalRounded />
+              </div>
+              {
+                userTalk &&
+                <div onClick={closeContacts}>
+                  <MdOutlineClose />
+                </div>
+              }
               {
                 isOpenOption 
                   && 
@@ -186,6 +207,7 @@ const Chat = () => {
               room={room} 
               setUser={setUserTalk} 
               socket={socket}
+              openContacts={openContacts}
             />
           }
 
