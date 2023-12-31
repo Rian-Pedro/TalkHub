@@ -22,7 +22,7 @@ import OptionProfile from '../components/OptionProfile'
 
 const Chat = () => {
 
-  const socket = io("http://54.242.165.37:4000")
+  const socket = io("https://node-pxcv.onrender.com")
 
   const { userInfo, setUserInfo } = useContext(UserListContext)
   const { newMessage, setNewMessage } = useContext(NewMessageContext)
@@ -138,7 +138,7 @@ const Chat = () => {
             <img 
               src={
                 userInfo.userImg 
-                ? `http://54.242.165.37:5000/getImg?src=${encodeURIComponent(userInfo.userImg)}` 
+                ? `https://flask-9ben.onrender.com/getImg?src=${encodeURIComponent(userInfo.userImg)}` 
                 : ''
               }
             />

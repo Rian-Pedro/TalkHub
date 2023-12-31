@@ -328,25 +328,70 @@ div.images {
 
 }
 
-@keyframes levitate {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-  /* Define a animação usando keyframes. Ela move o elemento para cima e para baixo. */
-}
-
-@media (min-width: 481px) and (max-width: 835px) {
+@media (max-width: 835px) {
   div.container-desc {
+    margin-left: 0;
+
     div.desc {
       width: 90% !important;
       text-align: center;
+
+      p {
+        font-size: 1.15rem !important;
+        width: 100%;
+      }
+
+      p:not(div.desc-total p) {
+        font-size: 2.5rem !important;
+        display: inline-flex;
+        width: 100%;
+        align-items: center;
+      }
+
     }
 
     justify-content: center;
     gap: 7rem;
+  }
+
+  .container:has(.issues) {
+    height: auto !important;
+
+    padding: 4rem 0 3rem 0;
+
+    div.issues {
+      width: 100% !important;
+    }
+  }
+
+  .container:has(.images) {
+    div.images {
+      div.content-images {
+
+        h1 {
+          font-size: 1.5rem;
+          text-align: center;
+          padding: 0 1.5rem !important;
+        }
+
+        div.area-images {
+          display: flex;
+          flex-direction: column;
+          width: 80%;
+          
+          div.img {
+            &:nth-child(1)::before {
+              left: -12%;
+              top: 5%;
+            }
+          }
+
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -389,7 +434,7 @@ div.images {
      align-items: center;
 
      div.card {
-       width: 80%;
+       width: 90%;
      }
    }
   }
@@ -413,13 +458,15 @@ div.images {
 
 @keyframes name {
   0% {
-    bottom: -5rem;
+    bottom: -10rem;
   }
 
   100% {
     bottom: 0rem;
   }
 }
+
+
 
 @keyframes dash {
   0% {

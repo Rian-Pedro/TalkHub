@@ -18,7 +18,7 @@ const Contact = ({user, set, handleNewChat, handleRemoveNewMsg, actual}) => {
   let interval
 
   useEffect(() => {
-    const socket = io("http://54.242.165.37:4000")
+    const socket = io("https://node-pxcv.onrender.com")
 
     socket.emit("join_room", {room: userInfo._id})
 
@@ -60,7 +60,7 @@ const Contact = ({user, set, handleNewChat, handleRemoveNewMsg, actual}) => {
   return (
     <div className='contact-card' onClick={handle}>
       <div className='img'>
-        <img src={user.userImg ? `http://54.242.165.37:5000/getImg?src=${encodeURIComponent(user.userImg)}` : ''} alt="imagem de perfil" />
+        <img src={user.userImg ? `https://flask-9ben.onrender.com/getImg?src=${encodeURIComponent(user.userImg)}` : ''} alt="imagem de perfil" />
         {(isNew && newMessage.sender == user.id) && 
           <div className='newMsg'>!</div>
         }
