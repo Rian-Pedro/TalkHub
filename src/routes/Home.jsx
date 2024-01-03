@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "../scss/Home.scss"
 import Header from '../components/Header'
 import Container from '../components/Container'
@@ -10,8 +10,16 @@ import background from "../assets/home/background-home.png"
 import img1 from "../assets/home/login-page.png"
 import img2 from "../assets/home/chat-page.png"
 import Footer from '../components/Footer'
+import api from '../services/Api'
 
 export const Home = () => {
+
+  useEffect(() => {
+    (async () => {
+      await api.get('start')
+    })()
+  }, [])
+
   return (
     <>
       <Container>
