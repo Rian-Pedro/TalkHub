@@ -97,9 +97,11 @@ footer {
       flex-direction: column;
 
       position: relative;
+      align-items: start !important;
 
       p {
-        font-size: 1rem;
+        font-size: 1rem !important;
+        width: 90%;
       }
 
       img {
