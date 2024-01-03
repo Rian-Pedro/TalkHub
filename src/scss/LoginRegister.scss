@@ -11,7 +11,7 @@ div.title-container {
   &::after {
     content: '';
     width: 100%;
-    height: 100%;
+    height: 100%; 
     background-color: rgba(0, 0, 0, 0.50);
     left: 0;
     position: absolute;
@@ -35,6 +35,7 @@ div.login-container {
   justify-content: center;
   gap: 1.5rem;
   position: relative;
+  border: 1px solid purple;
 
   p:not(label > p) {
     font-size: 1.25rem;
