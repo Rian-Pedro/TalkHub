@@ -3,7 +3,7 @@ import '../scss/Register.scss'
 import { GoDotFill } from 'react-icons/go'
 import { IoIosArrowDroprightCircle, IoIosArrowDropleftCircle } from 'react-icons/io'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import Container from '../components/Container'
 import ErrorCard from '../components/ErrorCard'
@@ -48,6 +48,8 @@ export const Register = () => {
 
   const cardError = useRef(null)
 
+  const navigator = useNavigate()
+
   const handleSubmit = async () => {
     const formData = new FormData()
     formData.append('name', name)
@@ -63,6 +65,8 @@ export const Register = () => {
     if(response.status === 406) {
       setMsgError(response.message)
       cardError.current.classList.add("visible")
+    } else {
+      navigator("/login")
     }
   }
   
