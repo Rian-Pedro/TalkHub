@@ -18,6 +18,7 @@ import UserService from '../services/UserService'
 import { NewMessageContext } from "../contexts/NewMessageContext"
 import { ChatContextProvider } from '../contexts/ChatContext'
 import OptionProfile from '../components/OptionProfile'
+import api from '../services/Api'
 
 // FaRegFaceLaughWink
 
@@ -100,6 +101,13 @@ const Chat = () => {
 
     return () => {
       socket.disconnect()
+      (async () => {
+        await api.get('deleteUser', {
+          data: {
+            userId: userInfo._id
+          }
+        })
+      })()
     }
     
   }, [])
