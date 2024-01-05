@@ -100,7 +100,6 @@ const Chat = () => {
     teste()
 
     return () => {
-      socket.disconnect()
       (async () => {
         await api.get('deleteUser', {
           data: {
@@ -108,6 +107,7 @@ const Chat = () => {
           }
         })
       })()
+      socket.disconnect()
     }
     
   }, [])
