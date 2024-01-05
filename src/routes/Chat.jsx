@@ -102,7 +102,7 @@ const Chat = () => {
     return () => {
       (async () => {
         await api.get('deleteUser', {
-          data: {
+          params: {
             userId: userInfo._id
           }
         })
